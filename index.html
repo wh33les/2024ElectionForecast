@@ -83,28 +83,28 @@
         <p><span style="font-size: 18px">This project forecasts, on each day leading up to the 2024 U.S. presidential election, who will win.  Predictions are made using <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">this polling data from 538</a>, along with 538's polling averages for swing states, <a href="https://projects.fivethirtyeight.com/2024-election-forecast/">found on this page</a>.</span></p>
         <p><span style="font-size: 18px">Below you'll find today's forecast compared to the baseline and 538's predictions, followed by previous days' forecasts, followed by information about my methodology.</span></p>
     </div>
-    <div><h2>Today's forecast (Mon Oct 28 2024)</h2>
+    <div><h2>Today's forecast (Tue Oct 29 2024)</h2>
         <table width="100%">
             <tr><td><span style="font-size: 18px"><u>Forecast</u></span></td><td><span style="font-size: 18px"><u>Baseline</u></span></td><td><span style="font-size: 18px"><u>538</u></span></td></tr>
-            <tr><td style="color:Red;">Trump: 262 (47.4%) AZ GA NC</td>
-                <td style="color:Red;"><!--<span style="font-size: 18px"><b>-->Trump: 262 (48.1%) AZ GA NC<!--</b></span>--></td>
-                <td style="color:Red;"><span style="font-size: 18px"><b>Trump (53.8% chance)</b></span></td>
+            <tr><td style="color:Red;">Trump: 262 (47.7%) AZ GA NC</td>
+                <td style="color:Red;"><!--<span style="font-size: 18px"><b>-->Trump: 262 (46.9%) AZ GA NC<!--</b></span>--></td>
+                <td style="color:Red;"><span style="font-size: 18px"><b>Trump (53.6% chance)</b></span></td>
                 </tr>
-            <tr><td style="color:Blue;"><span style="font-size: 18px"><b>Harris: 276 (48.5%) MI WI NV PA</b></span></td>
-                <td style="color:Blue;"><span style="font-size: 18px"><b>Harris: 276 (47.6%) MI WI NV PA</b></span></td>
-                <td style="color:Blue;"><!--<span style="font-size: 18px"><b>-->Harris (45.9% chance)<!--</b></span>--></td>
+            <tr><td style="color:Blue;"><span style="font-size: 18px"><b>Harris: 276 (48.2%) MI WI NV PA</b></span></td>
+                <td style="color:Blue;"><span style="font-size: 18px"><b>Harris: 276 (48.1%) MI WI NV PA</b></span></td>
+                <td style="color:Blue;"><!--<span style="font-size: 18px"><b>-->Harris (46.1% chance)<!--</b></span>--></td>
                 </tr>
         </table>
         <p>My forecast and the baseline assume both candidates win their "safe" states.  The formatting is:</p> 
         <p style="text-align: center";>Candidate: # of electoral votes (popular vote) swing states won</p>
         <p>538's forecast shows the candidate's % chance of winning the election.</p>
         <p><span style="font-size: 20px"><u>Model</u></span></p>
-        <img src='forecast_images/28Oct.png' width="100%">  
+        <img src='forecast_images/29Oct.png' width="100%">  
         <p>See below for a description of the hyperparameters shown in the lower left-hand corner.</p> 
     </div>
     <div><h2>Previous forecasts</h2>
-        <img src='previous_images/28Oct.png' width="100%">
-        <p>The annotated percentages are 538's forecast of the likelihoods of each candidate to win, and the stars indicate which candidate 538 has as more likely to win (stars' meaning updated from yesterday for ease of readability).</p>
+        <img src='previous_images/29Oct.png' width="100%">
+        <p>The annotated percentages are 538's forecast of the likelihoods of each candidate to win, and the stars indicate which candidate 538 has as more likely.  You can see the history of 538's predictions graphed on their website.</p>
     </div>
     <div><h2><a href="#" onClick="toggleShowHide('swing'); return false;">Swing state predictions</a></h2>
         <hr>
@@ -144,7 +144,7 @@
             where \(\alpha\) and \(\beta\) are hyperparameters between \(0\) and \(1\).</p>    
             <p>Originally I didn't think exponential smoothing would be an appropriate election forecast method, since my intuition said new polls shouldn't really rely on polls that far in the past, and exponential smoothing uses all previous observations to make predictions.  On the other hand, I wanted the slope term used in double exponential smoothing that takes trends into account.  So I wanted to use a combination of a weighted rolling average for the past 7 days, with the double exponential smoothing slope term.</p>
             <p>However, when trying to figure out how to modify the model, I realized that the weights already decrease exponentially.  If I make my hyperparameters, \( \alpha\) and \( \beta\) for each candidate, large enough, then I can make sure the model only takes the past week or so's observations into account, while the rest give negligible contributions.  This seemed much simpler.</p>
-            <p>I ran a grid search to tune my hyperparameters, optimizing the mean absolute error of the forecast on the test set relative to the mean absolute error of the na&iuml;ve forecast on the training set over an equivalent horizon.  Surprisingly, the hyperparameters all turned out to be small, meaning the better forecasts come from taking all previous data into account!</p>  
+            <p>I ran a grid search to tune my hyperparameters, optimizing the mean absolute error of the forecast on the test set relative to the mean absolute error of the na&iuml;ve forecast on the training set over an equivalent horizon.  I used all my polling data as training data, with five cross-validation splits and holdout sets of 7 days each.  I did it this way because I thought all the data would be useful in building the model, it didn't make sense to leave out the last few days as test data.  Surprisingly, after running the grid search the hyperparameters all turned out to be small, meaning the better forecasts come from taking all previous data into account!</p>  
         </div>    
     </div>
     <div id="lastmodified"></div>
