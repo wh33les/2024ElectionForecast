@@ -83,27 +83,36 @@
         <p><span style="font-size: 18px">This project forecasts, on each day leading up to the 2024 U.S. presidential election, who will win.  Predictions are made using <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">this polling data from 538</a>, along with 538's polling averages for swing states, <a href="https://projects.fivethirtyeight.com/2024-election-forecast/">found on this page</a>.</span></p>
         <p><span style="font-size: 18px">Below you'll find today's forecast compared to the baseline and 538's predictions, followed by previous days' forecasts, followed by information about my methodology.</span></p>
     </div>
-    <div><h2>Today's forecast (Mon Nov 4 2024)</h2>
+    <div><h2>Today's forecast (Tue Nov 5 2024)</h2>
         <table width="100%">
             <tr><td><span style="font-size: 18px"><u>Forecast</u></span></td><td><span style="font-size: 18px"><u>Baseline</u></span></td><td><span style="font-size: 18px"><u>538</u></span></td></tr>
-            <tr><td style="color:Red;">Trump: 268 (47.8%) AZ GA NC NV</td>
-                <td style="color:Red;"><!--<span style="font-size: 18px"><b>-->Trump: 268 (47.3%) AZ GA NC NV<!--</b></span>--></td>
-                <td style="color:Red;"><span style="font-size: 18px"><b>Trump (53.0% chance)</b></span></td>
+            <tr><td style="color:Red;">Trump: 268 (48.0%) AZ GA NC NV</td>
+                <td style="color:Red;"><!--<span style="font-size: 18px"><b>-->Trump: 268 (49.8%) AZ GA NC NV<!--</b></span>--></td>
+                <td style="color:Red;"><span style="font-size: 18px"><b>Trump (50.3% chance)</b></span></td>
                 </tr>
             <tr><td style="color:Blue;"><span style="font-size: 18px"><b>Harris: 270 (48.4%) MI WI PA</b></span></td>
-                <td style="color:Blue;"><span style="font-size: 18px"><b>Harris: 270 (48.3%) MI WI PA</b></span></td>
-                <td style="color:Blue;"><!--<span style="font-size: 18px"><b>-->Harris (46.7% chance)<!--</b></span>--></td>
+                <td style="color:Blue;"><span style="font-size: 18px"><b>Harris: 270 (47.8%) MI WI PA</b></span></td>
+                <td style="color:Blue;"><!--<span style="font-size: 18px"><b>-->Harris (49.5% chance)<!--</b></span>--></td>
                 </tr>
         </table>
         <p>My forecast and the baseline assume both candidates win their "safe" states.  The formatting is:</p> 
         <p style="text-align: center";>Candidate: # of electoral votes (popular vote) swing states won</p>
         <p>538's forecast shows the candidate's % chance of winning the election.</p>
         <p><span style="font-size: 20px"><u>Model</u></span></p>
-        <img src='forecast_images/04Nov.png' width="100%">  
+        <img src='forecast_images/05Nov.png' width="100%">  
         <p>See below for a description of the hyperparameters shown in the lower left-hand corner.</p> 
     </div>
+    <div><h2>Reflections</h2>
+        <p>This is my final forecast for the election.  Here are a couple of thoughts:
+            <ul>
+                <li>If you've been paying attention to my hyperparameters, you'll notice my \(\alpha\)s are always very low.  The only exception I saw was yesterday when \(\alpha_{trump}\) was 0.49.  If you know anything about exponential smoothing, then you'll know that this means my predictions were relying more on older data than newer.  Incidentally, I noticed my predictions seemed to lag behind 538's and I think this is why.</li>
+                <li>Everyone is saying this election is a toss-up, including 538.  Even though they gave Trump a higher likelihood of winning in today's forecast, they are predicting Harris will win with 270 electoral votes.  As mentioned below, I've noticed all the swing state polling has been well within the margin of error, so even though my predictions about the swing states have always been based on who's leading, they probably aren't very helpful.  For one thing, I think it's far more likely that Harris will win the popular vote and Trump will win the electoral college, but for the past few days my algorithm has been predicting the other way around.</li>
+            </ul>
+            Thanks for visiting this site and keeping up with it.  I may return with a few more thoughts once the outcome of the election is known.  Happy Election Day!
+        </p>
+    </div>
     <div><h2>Previous forecasts</h2>
-        <img src='previous_images/04Nov.png' width="100%">
+        <img src='previous_images/05Nov.png' width="100%">
         <p>The annotated percentages are 538's forecast of the likelihoods of each candidate to win, and the stars indicate which candidate 538 is more likely.  You can see the history of 538's predictions graphed on their website.</p>
     </div>
     <div><h2><a href="#" onClick="toggleShowHide('swing'); return false;">Swing state predictions</a></h2>
